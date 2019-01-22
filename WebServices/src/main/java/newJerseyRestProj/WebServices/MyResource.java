@@ -44,7 +44,7 @@ public class MyResource {
 			String pass="12345678";
 			String url="jdbc:mysql://localhost:3306/Acheron";
 			String q="select * from student where id="+Id;
-			//
+			System.out.println(q);
 			Connection con=DriverManager.getConnection(url,s,pass);
 			PreparedStatement pstmt=con.prepareStatement(q);
 			ResultSet rs=pstmt.executeQuery();
@@ -53,8 +53,8 @@ public class MyResource {
 				sd.setName(rs.getString(2));
 				sd.setAge(rs.getInt(3));
 				sd.setCountry(rs.getString(4));
-				System.out.println(rs.getInt(1));
-				System.out.println(rs.getString(2));
+				//System.out.println(rs.getInt(1));
+				//System.out.println(rs.getString(2));
 			}
 		//
 		}

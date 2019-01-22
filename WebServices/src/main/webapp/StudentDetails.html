@@ -7,36 +7,60 @@
          <script type="text/javascript">
 		var app=angular.module("myModule",[]);
 		
-		app.controller("myController",function($scope,$http){
+		app.controller("myController",['$scope','$http',function($scope,$http,$window){
+			
 			var Student={
-			        "Id":1,
+			        "Id":0,
 			        "Name":"",
-			        "Age":1,
+			        "Age":0,
 			        "Country":""
 			};
-			var Id=Student.Id;
-			$scope.Studet=Student;
+			//$window.alert(Student.Id+"Initial");
+			
+			$scope.Student=Student;
+			
 			$scope.GettingStudentDetails=function(){
+				var id=Student.Id;
+				//$window.alert(Student.Id);
+				
 	    		$http({
 	    			method :'GET',
-	    			url : 'http://localhost:8081/WebServices/webapi/myresource/GetStudentDetailsWithId/'+Id,
+	    			url : 'http://localhost:8081/WebServices/webapi/myresource/GetStudentDetailsWithId/'+id,
 	    			
 	    		}).then(function (response)
 	    				{
 	    			$scope.Student=response.data;
 	    				});
 	    	}
-	});
+	}]);
 
 </script>
         
 </head>
 <body>
-	<form ng-submit="GettingStudentDetails()">
-	<i>Enter Id</i><input type="number" Id="Id"  ng-model="Student.Id">
-	<input type="submit" value="Find Student" >
+	<form >
+	<i>Enter Id</i><input type="number" Id="Id"  ng-model="Student.Id" >
+	<input type="button" value="Find Student" ng-click="GettingStudentDetails()">
 	</form>
-	<t>{{Student.Id}}{{Student.Name}}{{Student.Age}}{{Student.Country}}</t>
+	<table>
+	<tr>
+	<td>Student Id:</td>
+	<td>{{Student.Id}}</td>
+	</tr>
+	<tr>
+	<td>Student Name:</td>
+	<td>{{Student.Name}}</td>
+	</tr>
+	<tr>
+	<td>Student Age:</td>
+	<td>{{Student.Age}}</td>
+	</tr>
+	<tr>
+	<td>Student Country:</td>
+	<td>{{Student.Country}}</td>
+	</tr>
+	</table>
+	
 	
 </body>
 </html>
