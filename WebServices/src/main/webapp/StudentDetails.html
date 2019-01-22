@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myModule" ng-controller="myController">
+<head>
+<meta charset="ISO-8859-1">
+<title>Student Details</title>
+        <script src="angular.js"></script>
+         <script type="text/javascript">
+		var app=angular.module("myModule",[]);
+		
+		app.controller("myController",function($scope,$http){
+			var Student={
+			        "Id":1,
+			        "Name":"",
+			        "Age":1,
+			        "Country":""
+			};
+			var Id=Student.Id;
+			$scope.Studet=Student;
+			$scope.GettingStudentDetails=function(){
+	    		$http({
+	    			method :'GET',
+	    			url : 'http://localhost:8081/WebServices/webapi/myresource/GetStudentDetailsWithId/'+Id,
+	    			
+	    		}).then(function (response)
+	    				{
+	    			$scope.Student=response.data;
+	    				});
+	    	}
+	});
+
+</script>
+        
+</head>
+<body>
+	<form ng-submit="GettingStudentDetails()">
+	<i>Enter Id</i><input type="number" Id="Id"  ng-model="Student.Id">
+	<input type="submit" value="Find Student" >
+	</form>
+	<t>{{Student.Id}}{{Student.Name}}{{Student.Age}}{{Student.Country}}</t>
+	
+</body>
+</html>
