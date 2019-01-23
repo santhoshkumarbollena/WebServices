@@ -1,10 +1,4 @@
 package newJerseyRestProj.WebServices;
-import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -33,35 +27,9 @@ public class MyResource {
     @GET
 	@Path("/GetStudentDetailsWithId/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student getStudentWithId(@PathParam("id") String Id)
+	public Student getStudentWithId(@PathParam("id") int Id)
 	{
-    	Student sd=new Student();
-    	try{
-
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			String s="root";
-			String pass="12345678";
-			String url="jdbc:mysql://localhost:3306/Acheron";
-			String q="select * from student where id="+Id;
-			System.out.println(q);
-			Connection con=DriverManager.getConnection(url,s,pass);
-			PreparedStatement pstmt=con.prepareStatement(q);
-			ResultSet rs=pstmt.executeQuery();
-			while(rs.next()){
-				sd.setId(rs.getInt(1));
-				sd.setName(rs.getString(2));
-				sd.setAge(rs.getInt(3));
-				sd.setCountry(rs.getString(4));
-				//System.out.println(rs.getInt(1));
-				//System.out.println(rs.getString(2));
-			}
-		//
-		}
-		catch(Exception ex){
-			System.out.println("Exception"+ex);
-		}
-		return sd;
-		
+    	StudentMapper studentobj=new StudentMapper();
+    	return studentobj.GettingStudentDet(Id);
 	}
 }
