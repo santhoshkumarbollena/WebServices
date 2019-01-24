@@ -32,6 +32,15 @@
 	    			$scope.Student=response.data;
 	    				});
 	    	}
+			$scope.AddStudentDetails=function(){
+	    		$http({
+	    			method :'POST',
+	    			url : 'http://localhost:8081/WebServices/webapi/myresource/StudentDetails',
+	    			data : angular.toJson($scope.Student),
+	    			headers:{'Content-Type':'application/json'}
+	    		}).then();
+	    		
+	    	}
 	}]);
 
 </script>
@@ -41,23 +50,27 @@
 	<form >
 	<i>Enter Id</i><input type="number" Id="Id"  ng-model="Student.Id" >
 	<input type="button" value="Find Student" ng-click="GettingStudentDetails()">
+	
 	</form>
 	<table>
 	<tr>
 	<td>Student Id:</td>
-	<td>{{Student.Id}}</td>
+	<td><input type="number" Id="Id" ng-model="Student.Id"></td>
 	</tr>
 	<tr>
 	<td>Student Name:</td>
-	<td>{{Student.Name}}</td>
+	<td><input type="text" Id="Name" ng-model="Student.Name"></td>
 	</tr>
 	<tr>
 	<td>Student Age:</td>
-	<td>{{Student.Age}}</td>
+	<td><input type="number" Id="Age" ng-model="Student.Age"></td>
 	</tr>
 	<tr>
 	<td>Student Country:</td>
-	<td>{{Student.Country}}</td>
+	<td><input type="text" Id="Country" ng-model="Student.Country"></td>
+	</tr>
+	<tr>
+	<td><input type="button" value="AddStudent" ng-click="AddStudentDetails()"></td>
 	</tr>
 	</table>
 	
