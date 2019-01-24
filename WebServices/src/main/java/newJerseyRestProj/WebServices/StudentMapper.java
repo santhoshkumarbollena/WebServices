@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class StudentMapper {
-	AllDbmsConnections con=new AllDbmsConnections();
+	DBServices con=new DBServices();
+	//Adding student details to DB using POST request
 	public void AddingStudent(Student p1) {
 		try{
 			
@@ -27,12 +28,13 @@ public class StudentMapper {
 				System.out.println("Exception raised");
 			}
 	}
+	//Getting student details using ID of the student on GET request
 	public Student GettingStudentDet(int Id) {
 	Student sd=new Student();
 	try{
 
 		String q="select * from student where id="+Id;
-		AllDbmsConnections con=new AllDbmsConnections();
+		DBServices con=new DBServices();
 		PreparedStatement pstmt=con.getConnectionObj().prepareStatement(q);
 		ResultSet rs=pstmt.executeQuery();
 		while(rs.next()){
@@ -50,4 +52,35 @@ public class StudentMapper {
 	}
 	return sd;
 	}
+	//deleting student details
+	public void deleteStudentDetails(int id) {
+		try{
+			String query="delete from Student where id="+id;
+			PreparedStatement pstmt=con.getConnectionObj().prepareStatement(query);
+			boolean f=pstmt.execute();
+			System.out.println(f);
+		}catch(Exception ex){
+			System.out.println("Exception in Student mapper in deleteStudent"+ex);
+		}
+		
+		
+	}
+	//updating student details based on ID
+	public void updateDetailsOfTheStudent(Student s1, int id) {
+		try{
+			
+			String query="update Student set Id='"+s1.getId()+"',name='"+s1.getName()+"',age='"+s1.getAge()+"',country='"+s1.getCountry()+"' where Id='"+id+"';";
+				PreparedStatement pstmt=con.getConnectionObj().prepareStatement(query);
+				int i=pstmt.executeUpdate();
+				if(i==1)
+				{
+					System.out.println("updated succesfully");
+				}
+			}catch(Exception ex){
+				System.out.println("error in updatedetails of Student"+ex);
+			}
+			
+		}
+		
+	
 }

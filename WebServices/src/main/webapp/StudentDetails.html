@@ -19,8 +19,8 @@
 			
 			$scope.Student=Student;
 			
-			$scope.GettingStudentDetails=function(){
-				var id=Student.Id;
+			$scope.GettingStudentDetails=function(id){
+				//var id=Student.Id;
 				//$window.alert(Student.Id);
 				
 	    		$http({
@@ -32,10 +32,34 @@
 	    			$scope.Student=response.data;
 	    				});
 	    	}
+			
 			$scope.AddStudentDetails=function(){
 	    		$http({
 	    			method :'POST',
 	    			url : 'http://localhost:8081/WebServices/webapi/myresource/StudentDetails',
+	    			data : angular.toJson($scope.Student),
+	    			headers:{'Content-Type':'application/json'}
+	    		}).then();
+	    		
+	    	}
+			
+			$scope.DeletingStudentDetails=function(StudentId)
+			{
+				var id=StudentId;
+				$http({
+					method:'DELETE',
+					url:'http://localhost:8081/WebServices/webapi/myresource/DeletingStudentDetails/'+id,
+				}).then(function(response){
+					
+				})
+				;
+			}
+			
+			$scope.UpdateStudentDetails=function(StudentId){
+				
+	    		$http({
+	    			method :'PUT',
+	    			url : 'http://localhost:8081/WebServices/webapi/myresource/UpdateStudentDetails/'+StudentId,
 	    			data : angular.toJson($scope.Student),
 	    			headers:{'Content-Type':'application/json'}
 	    		}).then();
@@ -49,8 +73,8 @@
 <body>
 	<form >
 	<i>Enter Id</i><input type="number" Id="Id"  ng-model="Student.Id" >
-	<input type="button" value="Find Student" ng-click="GettingStudentDetails()">
-	
+	<input type="button" value="Find Student" ng-click="GettingStudentDetails(Student.Id)">
+	<input type="button" value="Delete Student" ng-click="DeletingStudentDetails(Student.Id)">
 	</form>
 	<table>
 	<tr>
@@ -70,7 +94,8 @@
 	<td><input type="text" Id="Country" ng-model="Student.Country"></td>
 	</tr>
 	<tr>
-	<td><input type="button" value="AddStudent" ng-click="AddStudentDetails()"></td>
+	<td><input type="button" value="Add Student" ng-click="AddStudentDetails()"></td>
+	<td><input type="button" value="Update Student" ng-click="UpdateStudentDetails(Student.Id)"></td>
 	</tr>
 	</table>
 	

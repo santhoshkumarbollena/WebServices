@@ -2,7 +2,7 @@ package newJerseyRestProj.WebServices;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.*;
-public class AllDbmsConnections {
+public class DBServices {
 	Connection con;
 	public Connection getConnectionObj()
 	{
