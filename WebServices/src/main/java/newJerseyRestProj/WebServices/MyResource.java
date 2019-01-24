@@ -44,7 +44,7 @@ public class MyResource {
 	@POST
 	@Path("/StudentDetails")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public void AddingToCart(Student p1) {
+	public void AddingStudentDetails(Student p1) {
 		
 		StudentMapper st=new StudentMapper();
 		 st.AddingStudent(p1);
@@ -55,7 +55,7 @@ public class MyResource {
 	@DELETE
 	@Path("/DeletingStudentDetails/{ID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void deletingItemFromCart(@PathParam("ID") int Id)
+	public void deletingStudentDetails(@PathParam("ID") int Id)
 	{
 		//System.out.println("deleting student");
 		StudentMapper pm=new StudentMapper();
@@ -67,7 +67,7 @@ public class MyResource {
 	@Path("/UpdateStudentDetails/{Id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	
-	public void updateCustomerDetails(Student s1,@PathParam("Id") int Id)
+	public void updateStudentDetails(Student s1,@PathParam("Id") int Id)
 	{
 		StudentMapper sm=new StudentMapper();
 		 sm.updateDetailsOfTheStudent(s1,Id);
